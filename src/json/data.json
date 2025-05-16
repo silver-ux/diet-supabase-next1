@@ -1,50 +1,52 @@
-[
-    {
-        "id": 0,
-        "body": "chest",
-        "video": {
-            "url": [
-                "https://youtu.be/No9m0A2tzLw?si=RL0nwuaL9FvkDACE",
-                "https://youtu.be/ruuW5ZNNWEI?si=QZizhAs-KBM1gide",
-                "https://youtu.be/itwpxQ3MnGs?si=0ZJKl5VAXQsIk-Cb",
-                "https://youtu.be/52xzTBcO6eQ?si=EHL4ICnQI9rFiayJ"
-            ]
+{
+    "items": [
+        {
+            "id": 0,
+            "body": "chest",
+            "video": {
+                "url": [
+                    "https://www.youtube.com/embed/No9m0A2tzLw?si=UBMQpC1U9PIUJV0m",
+                    "https://www.youtube.com/embed/ruuW5ZNNWEI?si=2IpaunoitlC6MCgw",
+                    "https://www.youtube.com/embed/itwpxQ3MnGs?si=0GBKvMfOa0unqHww",
+                    "https://www.youtube.com/embed/52xzTBcO6eQ?si=uDga4_lJuzRUuNo_"
+                ]
+            }
+        },
+        {
+            "id": 1,
+            "body": "abs",
+            "video": {
+                "url": [
+                    "https://www.youtube.com/embed/g46tZN9J_2k?si=nu_oIhyA9ZR-Bmkj",
+                    "https://www.youtube.com/embed/yfF-Q2NhVnE?si=NQy_MyPrQCtxAo2p",
+                    "https://www.youtube.com/embed/7E-JAyzbj7o?si=Z1mtzEGeQmDkvjau",
+                    "https://www.youtube.com/embed/fuWhuiebcuw?si=He8lDRyjZfS1or-b"
+                ]
+            }
+        },
+        {
+            "id": 2,
+            "body": "leg",
+            "video": {
+                "url": [
+                    "https://www.youtube.com/embed/LOuh44mpQRg?si=Wg2CN8BIs3Z4VNTU",
+                    "https://www.youtube.com/embed/yIb2gd5NvIU?si=RuXN-Pt1Sz83YUEU",
+                    "https://www.youtube.com/embed/xg74DLTw7ts?si=125xX53XhdNhObDM",
+                    "https://www.youtube.com/embed/YGx3qBDUFCo?si=lHBHDFQzKweVA4Rw"
+                ]
+            }
+        },
+        {
+            "id": 3,
+            "body": "back",
+            "video": {
+                "url": [
+                    "https://www.youtube.com/embed/u9uSzm8gZ0E?si=Y2Mxakc2zZtv0F5y",
+                    "https://www.youtube.com/embed/t4ujKKrp5zs?si=hysDdHkqHhxV-V9Q",
+                    "https://www.youtube.com/embed/A1tr2FdoWiE?si=YDzZ1qJJo5XEHA5s",
+                    "https://www.youtube.com/embed/Q-LGg-58_ZU?si=cuMSemcayfUhrtlg"
+                ]
+            }
         }
-    },
-    {
-        "id": 1,
-        "body": "abs",
-        "video": {
-            "url": [
-                "https://youtu.be/g46tZN9J_2k?si=NDWNL0NXRVFHXAqT",
-                "https://youtu.be/yfF-Q2NhVnE?si=ZvSUhvj32ktOLu72",
-                "https://youtu.be/7E-JAyzbj7o?si=CLxGPiWDUVYkMwGv",
-                "https://youtu.be/fuWhuiebcuw?si=ivi8pgER1epLOQpF"
-            ]
-        }
-    },
-    {
-        "id": 2,
-        "body": "leg",
-        "video": {
-            "url": [
-                "https://youtu.be/LOuh44mpQRg?si=82EnVKr1SE4pZYP3",
-                "https://youtu.be/yIb2gd5NvIU?si=vSeYkGtd6DJl7Bxf",
-                "https://youtu.be/xg74DLTw7ts?si=2A82Rf8VneT_BqVR",
-                "https://youtu.be/YGx3qBDUFCo?si=Tj_nxYgZm3i98Zkw"
-            ]
-        }
-    },
-    {
-        "id": 3,
-        "body": "back",
-        "video": {
-            "url": [
-                "https://youtu.be/u9uSzm8gZ0E?si=Um4YfwUDuhS7GnII",
-                "https://youtu.be/t4ujKKrp5zs?si=SPlo85UH85UdFoLG",
-                "https://youtu.be/A1tr2FdoWiE?si=rfD0sJLR78HqyYrr",
-                "https://youtu.be/Q-LGg-58_ZU?si=xt268fhSsGsobdQj"
-            ]
-        }
-    }
-]
+    ]
+}
