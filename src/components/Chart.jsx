@@ -2,7 +2,7 @@
 import { useEffect, useState } from 'react';
 import { Line } from 'react-chartjs-2';
 import { Fetch } from '@/supabase/Fetch';
-import supabase from '@/supabase/init';
+import { addFunc } from '@/lib/addFunc';
 import {
     Chart as ChartJS,
     CategoryScale,
@@ -23,6 +23,8 @@ export default function Chart() {
     const [num, setNum] = useState('');
     const [walk, setWalk] = useState('');
 
+
+    //取得
     const fetchDataFunc = async () => {
         const items = await Fetch();
 
@@ -34,13 +36,17 @@ export default function Chart() {
             return `${month}-${day}`;
         });
 
+        //体重
         const weightsNum = items.map((item) => {
             return item.number
-        })
+        });
+
+        //歩数
         const walkNum = items.map((item) => {
             return item.walk
         })
 
+        //チャートに表示するため
         setLabels(monthDays);
         setWeights(weightsNum);
         setWalkArr(walkNum)
@@ -50,15 +56,7 @@ export default function Chart() {
         fetchDataFunc();
     }, [])
 
-    const addNum = async () => {
-        if (num === '' || walk === '') {
-            alert('入力してください');
-            return;
-        }
-        await supabase.from("posts").insert({ number: num, walk: walk });
-        fetchDataFunc();
-        setNum('');
-    }
+
 
     const data = {
         labels,
@@ -87,17 +85,20 @@ export default function Chart() {
 
     const options = {
         responsive: true,
+        maintainAspectRatio: false,
         scales: {
             x: {
-                title: {
-                    display: true,
-                    text: '日付',
+                ticks: {
+                    font: {
+                        size: 14
+                    }
                 },
             },
             y: {
-                title: {
-                    display: true,
-                    text: '体重 (kg)',
+                ticks: {
+                    font: {
+                        size: 14
+                    }
                 },
                 suggestedMin: 40,
                 suggestedMax: 100,
@@ -108,25 +109,37 @@ export default function Chart() {
     return (
         <div style={{ padding: '2rem' }}>
             <h1>体重グラフ</h1>
-            <div style={{ marginBottom: '1rem' }}>
+            <div className='mb-[1rem] '>
                 <input
                     type="number"
                     value={walk}
                     onChange={(e) => setWalk(e.target.value)}
                     placeholder="歩数"
-                    style={{ marginRight: '1rem' }}
+                    className='800:mr-[1rem] py-2 px-1.5 border-1 w-full 800:w-auto'
                 />
                 <input
                     type="number"
                     value={num}
                     onChange={(e) => setNum(e.target.value)}
                     placeholder="体重 (kg)"
-                    style={{ marginRight: '1rem' }}
+                    className='800:mr-[1rem] py-2 px-1.5 border-1 w-full 800:w-auto my-[1rem]'
                 />
-                <button onClick={addNum}>追加</button>
+                <button onClick={async () => {
+                    const success = await addFunc(walk, num);
+                    if (success) {
+                        fetchDataFunc();
+                        setNum('');
+                        setWalk('');
+                    } else {
+                        setNum('');
+                        setWalk('');
+                    }
+                }} className='inline-block w-full 800:w-auto  px-[1rem] py-[0.5rem] rounded-1xl cursor-pointer bg-amber-500 hover:bg-amber-400'>追加</button>
             </div>
-            <Line data={data} options={options} />
-            <Line data={data2} options={options} />
+            <div className="800:flex justify-between h-[400px]">
+                <Line data={data} options={options} className='800:max-w-[50%] ' />
+                <Line data={data2} options={options} className='800:max-w-[50%] ' />
+            </div>
         </div>
     );
 }

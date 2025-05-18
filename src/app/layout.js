@@ -15,7 +15,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="ja">
       <body
-        className={`${noto.className} max-w-[1200px] mx-auto px-[5%]`}
+        className={`${noto.className} max-w-[1500px] mx-auto px-[5%]`}
       >
         {children}
       </body>

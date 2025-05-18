@@ -4,3 +4,7 @@ body{
   height: 100%;
   width: 100%;
 }
+
+@theme {
+  --breakpoint-800: 800px;
+}
