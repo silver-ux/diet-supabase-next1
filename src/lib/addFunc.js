@@ -1,5 +1,6 @@
 import supabase from '@/supabase/init';
 
+//１日一回に投稿を制限する 
 export const addFunc = async (walk, num) => {
     if (num === '' || walk === '') {
         alert('入力してください');

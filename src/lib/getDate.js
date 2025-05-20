@@ -1,8 +1,9 @@
-import getData from '@/lib/getData'
+import getJson from '@/lib/getJson'
 
+//２日に一回JSONの動画を更新するための関数
 const getDate = async () => {
     const now = new Date();
-    const data = await getData();
+    const data = await getJson();
 
     const baseDate = new Date("2025-05-16");
 
