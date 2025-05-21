@@ -1,9 +1,13 @@
-import getJson from '@/lib/getJson'
+import { promises as fs } from "fs";
+import path from "path";
 
 //２日に一回JSONの動画を更新するための関数
-const getDate = async () => {
+export async function GET(request) {
     const now = new Date();
-    const data = await getJson();
+
+    const filePath = path.join(process.cwd(), 'src/json/data.json');
+    const fileContents = await fs.readFile(filePath, 'utf8');
+    const data = JSON.parse(fileContents);
 
     const baseDate = new Date("2025-05-16");
 
@@ -17,7 +21,5 @@ const getDate = async () => {
     const urlIndex = seed % item.video.url.length;
     const selectedUrl = item.video.url[urlIndex];
 
-    return selectedUrl;
+    return Response.json({ url: selectedUrl });
 }
-
-export default getDate

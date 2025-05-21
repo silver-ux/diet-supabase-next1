@@ -1,28 +1,25 @@
 'use client';
-import React, { useState } from 'react'
-import { supabase } from '@/supabase/init';
+import React, { useContext, useState } from 'react'
+import { makeAnAccount } from '@/lib/userAction';
+import { Mycontext } from '@/Context';
 
-const SignUp = ({ view, setView }) => {
+const SignUp = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
+    const { setClose2 } = useContext(Mycontext);
+
+
     const handleSubmit = async () => {
-        const { data, error } = await supabase.auth.signUp({
-            email: email,
-            password: password,
-        })
-        if (error) {
-            console.log(error);
-            alert(`エラーです${error}`)
-        }
-        console.log(data);
+        makeAnAccount(email, password);
         setEmail('');
         setPassword('');
-        setView(false)
+        setClose2(false);
     }
     return (
-        <div className='bg-white absolute left-0 top-[100px] right-0 bottom-0 text-center'>
-            <div className='bg-gray-200 h-[70%] w-[60%] mx-auto px-[10%] py-[2rem] text-center '>
+        <div className='bg-white fixed inset-0 text-center'>
+            <div className='bg-gray-200 h-[70%] w-[60%] mx-auto px-[10%] relative py-[2rem] text-center '>
+                <button className='absolute top-0 right-3' onClick={() => setClose2(false)}>close</button>
                 <h2 className='font-bold text-2xl mb-[1rem]'>アカウント作成</h2>
                 <input className='border-1 inline-block w-[80%] p-[0.8rem]' type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} />
                 <input className='border-1 inline-block w-[80%] my-[1rem] p-[0.8rem]' type="password" placeholder='Passwordを入力' value={password} onChange={(e) => setPassword(e.target.value)} />

@@ -1,3 +1,4 @@
+import { getUser } from '@/supabase/Fetch';
 import supabase from '@/supabase/init';
 
 //１日一回に投稿を制限する 
@@ -7,8 +8,8 @@ export const addFunc = async (walk, num) => {
         return;
     }
 
-    const { data: posts, error } = await supabase
-        .from('posts')
+    const { data: body_data, error } = await supabase
+        .from('body_data')
         .select('created_at')
         .order('created_at', { ascending: false })
         .limit(1);
@@ -19,7 +20,7 @@ export const addFunc = async (walk, num) => {
         return;
     }
 
-    const lastPost = posts[0];
+    const lastPost = body_data[0];
     if (lastPost) {
         const lastDate = new Date(lastPost.created_at);
         const today = new Date();
@@ -34,5 +35,11 @@ export const addFunc = async (walk, num) => {
         }
     }
 
-    await supabase.from("posts").insert({ number: num, walk: walk });
+    const user = await getUser();
+
+    await supabase
+        .from('body_data')
+        .insert({ weight: num, walk: walk, user: user.id });
+
+    alert('データが追加されました');
 }
