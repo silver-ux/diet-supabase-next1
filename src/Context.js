@@ -14,6 +14,9 @@ const Context = () => {
     const [user, setUser] = useState(null);
     const [close, setClose] = useState(false);
     const [close2, setClose2] = useState(false);
+    const [labels, setLabels] = useState([]);
+    const [weights, setWeights] = useState([]);
+    const [walkArr, setWalkArr] = useState([]);
 
     useEffect(() => {
         const checkSession = async () => {
@@ -27,7 +30,7 @@ const Context = () => {
     }, []);
 
     return (
-        <Mycontext.Provider value={{ isLoggedInOut, setIsLoggedInOut, user, setUser, close, setClose, close2, setClose2, }}>
+        <Mycontext.Provider value={{ labels, setLabels, weights, setWeights, walkArr, setWalkArr, isLoggedInOut, setIsLoggedInOut, user, setUser, close, setClose, close2, setClose2, }}>
             <Header />
             <Video />
             <Chart key={isLoggedInOut ? 'in' : 'out'} />

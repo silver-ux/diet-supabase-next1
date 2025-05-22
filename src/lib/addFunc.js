@@ -1,8 +1,9 @@
 import { getUser } from '@/supabase/Fetch';
 import supabase from '@/supabase/init';
+import { fetchDataFunc } from './fetchDataFunc';
 
 //１日一回に投稿を制限する 
-export const addFunc = async (walk, num) => {
+export const addFunc = async (walk, num, setLabels, setWeights, setWalkArr) => {
     if (num === '' || walk === '') {
         alert('入力してください');
         return;
@@ -39,7 +40,8 @@ export const addFunc = async (walk, num) => {
 
     await supabase
         .from('body_data')
-        .insert({ weight: num, walk: walk, user: user.id });
+        .insert({ weight: num, walk: walk, user_id: user.id });
 
+    fetchDataFunc(setLabels, setWeights, setWalkArr);
     alert('データが追加されました');
 }

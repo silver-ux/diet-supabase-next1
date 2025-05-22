@@ -1,13 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { Mycontext } from '@/Context';
 import supabase from '@/supabase/init';
-import { Fetch, getUser } from '@/supabase/Fetch';
+import { getUser } from '@/supabase/Fetch';
+import { fetchDataFunc } from '@/lib/fetchDataFunc';
 
 const SignIn = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const { isLoggedInOut, setIsLoggedInOut, setClose, setUser, setItems } = useContext(Mycontext);
+    const { setLabels, setWeights, setWalkArr, setIsLoggedInOut, setClose, setUser } = useContext(Mycontext);
 
 
     // ログイン
@@ -23,11 +24,20 @@ const SignIn = () => {
         }
         alert(`${data.user.email}にログインしました`)
 
+        // 入力した文字を初期化
         setEmail('');
         setPassword('');
+
+        // ログインしてる状態
         setIsLoggedInOut(true);
+
+        //データ取得 
+        fetchDataFunc(setLabels, setWeights, setWalkArr)
+
+        //ログイン画面を非表示にする
         setClose(false);
 
+        // 今のユーザー情報をuserに入れる
         const item = await getUser();
         setUser(item);
 
