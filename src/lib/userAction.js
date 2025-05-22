@@ -1,4 +1,3 @@
-import { Fetch } from "@/supabase/Fetch";
 import supabase from "@/supabase/init";
 
 // export const checkSession = async () => {
@@ -30,7 +29,7 @@ export const makeAnAccount = async (email, password) => {
         console.log(error);
         alert(`エラーです${error}`)
     }
-    alert(`${data.email}のアカウントを作りました`)
+    alert(`${email}のアカウントを作りました`)
 }
 
 
