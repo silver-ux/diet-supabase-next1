@@ -44,8 +44,8 @@ const SignIn = () => {
     }
 
     return (
-        <div className='bg-white fixed inset-0 text-center'>
-            <div className='bg-gray-200 h-[100%] 800:h-[70%] 800:w-[60%] mx-auto px-[10%] py-[2rem] relative text-center 800:mt-[3rem] '>
+        <div className='bg-white fixed inset-0 text-center '>
+            <div className='pt-[200px] 800:pt-[100px] bg-gray-200 h-[100%] 800:h-[70%] 800:w-[60%] mx-auto px-[10%] py-[2rem] relative text-center 800:mt-[3rem] '>
                 <button className='absolute top-0 right-0 800:px-[2rem] 800:py-[1rem] px-[1rem] py-[0.5rem] rounded-bl-md bg-gray-100 cursor-pointer' onClick={() => setClose(false)}>close</button>
                 <h2 className='font-bold text-2xl mb-[1rem]'>ログイン</h2>
                 <input className='border-1 inline-block w-[80%] p-[0.8rem]' type="email" placeholder='Email' value={email} onChange={(e) => setEmail(e.target.value)} autoComplete='email' />
