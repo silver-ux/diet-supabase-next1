@@ -1,5 +1,6 @@
 import supabase from "./init";
 
+// 現在のユーザー情報を取得
 export const getUser = async () => {
     const { data: { user }, error: userError } = await supabase.auth.getUser();
 

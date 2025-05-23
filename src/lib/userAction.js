@@ -1,3 +1,4 @@
+import { getUser } from "@/supabase/Fetch";
 import supabase from "@/supabase/init";
 
 // export const checkSession = async () => {
@@ -19,18 +20,47 @@ import supabase from "@/supabase/init";
 
 // };
 
+
 // アカウント作成
 export const makeAnAccount = async (email, password) => {
-    const { data, error } = await supabase.auth.signUp({
+
+    const { error } = await supabase.auth.signUp({
         email: email,
         password: password,
     })
     if (error) {
         console.log(error);
-        alert(`エラーです${error}`)
+        alert(`エラーです${error}`);
+        return;
+    }
+    if (error?.message === 'User already registered') {
+        alert('このメールアドレスは既に登録されています')
     }
     alert(`${email}のアカウントを作りました`)
 }
 
+// 入ってるデータの初期化
+export const deleteAccount = async () => {
+    const {
+        data: { user },
+        error
+    } = await supabase.auth.getUser()
+
+    if (error) {
+        console.error('ユーザー取得失敗:', error.message)
+    }
+
+    if (user) {
+        const { error: profileError } = await supabase
+            .from('body_data')
+            .delete()
+            .eq('user_id', user.id)
+
+        if (profileError) {
+            console.error('データ削除エラー:', profileError)
+        }
+    }
+
+}
 
 

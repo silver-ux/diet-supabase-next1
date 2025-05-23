@@ -3,8 +3,10 @@ import React, { useContext, useEffect } from 'react'
 import { getUser } from '@/supabase/Fetch';
 import { Mycontext } from '@/Context';
 import supabase from '@/supabase/init';
+import HeaderBtn from './HeaderBtn';
+import { deleteAccount } from '@/lib/userAction';
 
-const Header = ({ }) => {
+const Header = () => {
 
     const { isLoggedInOut, setIsLoggedInOut, setUser, user, setClose, setClose2 } = useContext(Mycontext);
 
@@ -30,15 +32,13 @@ const Header = ({ }) => {
     }
 
 
+
     return (
         <div className='h-[80px] flex justify-between items-center border-b-1'>
             <h1>{user?.email ?? 'Welcome!'}</h1>
-            {/* <h1>Welcome</h1> */}
-            <div>
-
-                {user ? <button className='border-b-1 mr-[1rem] cursor-pointer' onClick={async () => { logout(); setIsLoggedInOut(false) }}>ログアウト</button> : <button className='border-b-1 mr-[1rem] cursor-pointer' onClick={() => { setIsLoggedInOut(true); setClose(true) }}>ログイン</button>}
-
-                <button className='border-b-1 cursor-pointer' onClick={() => setClose2(true)}>アカウント作成</button>
+            <div className='flex justify-end flex-col-reverse 800:flex-row text-[14px] 800:text-[16px]'>
+                {user ? <HeaderBtn className={'mr-[1rem]'} clickFunc={async () => { logout(); setIsLoggedInOut(false) }}>ログアウト</HeaderBtn> : <HeaderBtn className={'mr-[1rem]'} clickFunc={() => { setIsLoggedInOut(true); setClose(true) }}> ログイン</HeaderBtn>}
+                {user ? <HeaderBtn clickFunc={() => deleteAccount()}>初期化</HeaderBtn> : <HeaderBtn clickFunc={() => setClose2(true)}>アカウント作成</HeaderBtn>}
             </div>
         </div >
     )
