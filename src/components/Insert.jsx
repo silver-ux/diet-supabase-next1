@@ -1,8 +1,9 @@
 import { Mycontext } from '@/Context';
 import { addFunc } from '@/lib/addFunc';
+import { FetchMonth } from '@/supabase/Fetch';
 import React, { useContext } from 'react'
 
-const Insert = ({ setNum, setWalk, num, walk, fetchDataFunc }) => {
+const Insert = ({ setNum, setWalk, num, walk, setMonths, selectedValue }) => {
     const { setLabels, setWeights, setWalkArr } = useContext(Mycontext);
 
     return (
@@ -23,9 +24,8 @@ const Insert = ({ setNum, setWalk, num, walk, fetchDataFunc }) => {
                     className='800:mr-[1rem] py-2 px-1.5 border-1 w-full 800:w-auto my-[1rem]'
                 />
                 <button onClick={async () => {
-                    const success = await addFunc(walk, num, setLabels, setWeights, setWalkArr);
+                    const success = await addFunc(walk, num, setMonths, selectedValue, setLabels, setWeights, setWalkArr);
                     if (success) {
-                        fetchDataFunc();
                         setNum('');
                         setWalk('');
                     } else {

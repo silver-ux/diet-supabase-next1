@@ -14,6 +14,7 @@ import {
 import Insert from './Insert';
 import { Mycontext } from '@/Context';
 import { fetchDataFunc } from '@/lib/fetchDataFunc';
+import { FetchMonth } from '@/supabase/Fetch';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -21,12 +22,25 @@ export default function Chart() {
 
     const [num, setNum] = useState('');
     const [walk, setWalk] = useState('');
+    const [months, setMonths] = useState([]);
+
+    const handleChange = (event) => {
+        setSelectedValue(event.target.value);
+    };
+
 
     const { setLabels, setWeights, setWalkArr, isLoggedInOut, labels, weights, walkArr } = useContext(Mycontext);
 
+    const date = new Date();
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const [selectedValue, setSelectedValue] = useState(`${year}-${month}`);
+
+
     useEffect(() => {
         if (isLoggedInOut) {
-            fetchDataFunc(setLabels, setWeights, setWalkArr);
+            // fetchDataFunc(setLabels, setWeights, setWalkArr);
+            FetchMonth(setMonths, selectedValue, setLabels, setWeights, setWalkArr)
         } else {
             setLabels([]);
             setWeights([]);
@@ -68,8 +82,9 @@ export default function Chart() {
                 ticks: {
                     font: {
                         size: 14
-                    }
-                },
+                    },
+                    maxTicksLimit: 5
+                }
             },
             y: {
                 ticks: {
@@ -84,12 +99,26 @@ export default function Chart() {
     };
 
     return (
-        <div style={{ padding: '2rem' }}>
+        <div className='p-[2rem] px-0'>
             <h1>体重グラフ</h1>
-            <Insert setNum={setNum} num={num} walk={walk} setWalk={setWalk} fetchDataFunc={fetchDataFunc} />
+            <Insert setNum={setNum} num={num} walk={walk} setWalk={setWalk} fetchDataFunc={fetchDataFunc} setMonths={setMonths} selectedValue={selectedValue} />
+
+            {/* clicked === 'month' */}
+            <select value={selectedValue} onChange={handleChange} className='border-1'>
+                <option value="">選択してください</option>
+                {months.map((item) => (
+                    <option key={item} value={item}>{item}月</option>
+                ))}
+            </select>
             <div className="800:flex justify-between h-[400px]">
-                <Line data={data} options={options} className='800:max-w-[50%] ' />
-                <Line data={data2} options={options} className='800:max-w-[50%] ' />
+                <div className='w-full h-full overflow-x-auto'>
+                    <div className='w-full h-full'>
+                        <Line data={data} options={options} />
+                    </div>
+                </div>
+                <div className='w-full h-full'>
+                    <Line data={data2} options={options} />
+                </div>
             </div>
         </div>
     );

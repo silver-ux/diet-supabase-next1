@@ -3,13 +3,13 @@ import { Fetch } from "@/supabase/Fetch";
 //取得
 export const fetchDataFunc = async (setLabels, setWeights, setWalkArr) => {
     const items = await Fetch();
-
     //月日だけ取得
     const monthDays = items.map(row => {
         const date = new Date(row.created_at);
+        const year = String(date.getFullYear());
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-        return `${month}-${day}`;
+        return `${year}-${month}-${day}`;
     });
 
     //体重

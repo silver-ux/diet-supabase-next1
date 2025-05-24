@@ -1,9 +1,8 @@
-import { getUser } from '@/supabase/Fetch';
+import { FetchMonth, getUser } from '@/supabase/Fetch';
 import supabase from '@/supabase/init';
-import { fetchDataFunc } from './fetchDataFunc';
 
 //１日一回に投稿を制限する 
-export const addFunc = async (walk, num, setLabels, setWeights, setWalkArr) => {
+export const addFunc = async (walk, num, setMonths, selectedValue, setLabels, setWeights, setWalkArr) => {
     if (num === '' || walk === '') {
         alert('入力してください');
         return;
@@ -38,10 +37,28 @@ export const addFunc = async (walk, num, setLabels, setWeights, setWalkArr) => {
 
     const user = await getUser();
 
-    await supabase
+    const { data: insertedData } = await supabase
         .from('body_data')
-        .insert({ weight: num, walk: walk, user_id: user.id });
+        .insert({ weight: num, walk: walk, user_id: user.id })
+        .select();
 
-    fetchDataFunc(setLabels, setWeights, setWalkArr);
+    const inserted = insertedData[0];
+
+    // 追加したデータを即画面に反映
+    const date = new Date(inserted.created_at);
+    const year = String(date.getFullYear());
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    const newLabel = `${year}-${month}-${day}`;
+
+    setLabels(prev => [...prev, newLabel]);
+    setWeights(prev => [...prev, inserted.weight]);
+    setWalkArr(prev => [...prev, inserted.walk]);
+    // await new Promise(r => setTimeout(r, 300));
+
+    await FetchMonth(setMonths, selectedValue, setLabels, setWeights, setWalkArr);
+
+
     alert('データが追加されました');
+    return true;
 }
